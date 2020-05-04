@@ -1,0 +1,21 @@
+<%- include ('../partials/header.ejs'); %>
+
+<div class="container newForm">
+    <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
+        <div class="form-group">
+            <label>Text</label>
+            <textarea class="form-control" rows="3" name="comment[text]" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Star</label>
+            <input type="text" placeholder="number(0-5)" name="comment[star]" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Author</label>
+            <input type="text" placeholder="name" name="comment[author]" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
+
+<%- include ('../partials/footer.ejs'); %>

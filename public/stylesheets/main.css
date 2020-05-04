@@ -1,0 +1,43 @@
+html,
+body {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Roboto Slab', serif;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+.list-group {
+    width: 80%;
+    margin-top: 1.5em;
+}
+
+.caption a {
+    color: color: #417bb7;
+}
+
+#starRates {
+    color: #ff5200;
+}
+
+#starRates #starAvg {
+    margin-left: 3px;
+}
+
+#commentBtn {
+    margin-bottom: 15px;
+}
+
+.newForm {
+    width: 30%;
+}
+
+.jumbotron {
+    text-align: center;
+}
+
+.jumbotron a {
+    margin-top: 2em;
+}
