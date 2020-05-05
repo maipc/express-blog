@@ -41,3 +41,12 @@ body {
 .jumbotron a {
     margin-top: 2em;
 }
+
+.formTitle {
+    margin-bottom: 15px;
+}
+
+.hidden {
+    display: none;
+}
+

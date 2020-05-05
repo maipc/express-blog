@@ -1,0 +1,18 @@
+<%- include ('./partials/header.ejs'); %>
+
+<div class="container newForm">
+    <h1 class="formTitle">Sign Up</h1>
+    <form action="/register" method="POST">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" placeholder="name" name="username" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" placeholder="password" name="password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<%- include ('./partials/footer.ejs'); %>
