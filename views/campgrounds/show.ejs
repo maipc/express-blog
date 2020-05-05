@@ -1,10 +1,12 @@
 <%- include ('../partials/header.ejs'); %>
 
 <% var starAvg = 0; %>
-<% campground.comments.forEach(function(comment) { %>
+<% if(campground.comments.length) { %>
+    <% campground.comments.forEach(function(comment) { %>
     <% starAvg += comment.star; %>
-<% }); %>
-<% starAvg /= campground.comments.length; %>
+    <% }); %>
+    <% starAvg /= campground.comments.length; %>
+<% } %>
 <div class="container">
     <div class="row">
         <div class="col-md-3">
@@ -24,7 +26,8 @@
                         <span class="pull-right">$<%= campground.price.toFixed(2) %>/night</span>
                     </h4>
                     <p><%= campground.description %></p>
-                    <div id="starRates">
+                    <p id="author">submitted by <%= campground.author.username %></p>
+                    <p id="starRates">
                         <% for(var i=0; i<Math.floor(starAvg); i++) { %>
                         <span class="glyphicon glyphicon-star" aria-hidden="true" ></span>
                         <% } %>
@@ -32,7 +35,11 @@
                         <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
                         <% } %>
                         <span id="starAvg"><%= starAvg %> Stars</span>
-                    </div>
+                    </p>
+                    <a class="btn btn-warning" href="/campgrounds/<%= campground._id %>/edit" role="button">Edit</a>
+                    <form id="deleteBtn" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
                 </div>
             </div>
             <div class="well">
@@ -48,9 +55,13 @@
                             <% for(var i=comment.star; i<5; i++) { %>
                             <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
                             <% } %>
-                            <span><%= comment.author %></span>
+                            <span><%= comment.author.username %></span>
                             <span class="pull-right"><%= comment.created.toDateString() %></span>
                             <p><%= comment.text %></p>
+                            <a class="btn btn-warning" href="#" role="button">Edit</a>
+                            <form action="" method="POST">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
                         </div>
                     </div>
                 <% }); %>
