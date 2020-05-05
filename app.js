@@ -9,6 +9,10 @@ const express = require("express"),
   User = require("./models/user.js"),
   seedDB = require("./seeds.js");
 
+var commentRoutes = require("./routes/comments"),
+   campgroundRoutes = require("./routes/campgrounds"),
+   indexRoutes = require("./routes/index");
+  
 mongoose.set("useUnifiedTopology", true);
 mongoose.connect("mongodb://localhost:27017/yelp_camp", {
   useNewUrlParser: true,
@@ -33,107 +37,11 @@ app.use(function(req, res, next) {
   next();
 })
 
+app.use("/", indexRoutes);
+app.use("/campgrounds", campgroundRoutes);
+app.use("/campgrounds/:id/comments", commentRoutes);
+
 seedDB();
-
-app.get("/", (req, res) => {
-  res.render("landing");
-});
-
-app.get("/campgrounds", (req, res) => {
-  Campground.find({}, function (err, campgrounds) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render("campgrounds/index", { campgrounds: campgrounds });
-    }
-  });
-});
-
-app.get("/campgrounds/new", (req, res) => {
-  res.render("campgrounds/new");
-});
-
-app.post("/campgrounds", (req, res) => {
-  Campground.create(req.body.campground, function (err, campground) {
-    if (err) {
-      res.redirect("/campgrounds/new");
-    } else {
-      res.redirect("/campgrounds");
-    }
-  });
-});
-
-app.get("/campgrounds/:id", (req, res) => {
-  Campground.findById(req.params.id).populate("comments").exec(function (err, campground) {
-      if (err) {
-        res.redirect("/campgrounds");
-      } else {
-        // console.log(campground);
-        res.render("campgrounds/show", { campground: campground });
-      }
-    });
-});
-
-app.get("/campgrounds/:id/comments/new", isLoggedIn, (req, res) => {
-  Campground.findById(req.params.id, function(err, campground) {
-    if(!err) {
-      res.render("comments/new", { campground: campground });
-    }
-  });
-});
-
-app.post("/campgrounds/:id/comments", isLoggedIn, (req, res) => {
-  Campground.findById(req.params.id, function(err, campground) {
-    if(!err) {
-      Comment.create(req.body.comment, function(err, comment) {
-        if(!err) {
-          campground.comments.push(comment);
-          campground.save();
-          res.redirect("/campgrounds/" + campground._id);
-        }
-      })
-    }
-  });
-});
-
-app.get("/register", (req, res) => {
-  res.render("register");
-});
-
-app.post("/register", (req, res) => {
-  var newUser = new User({username: req.body.username});
-  User.register(newUser, req.body.password, function(err, user) {
-    if(err) {
-      console.log(err);
-      res.render("register");
-    }
-    passport.authenticate("local")(req, res, function() {
-      res.redirect("/campgrounds");
-    })
-  });
-});
-
-app.get("/login", (req, res) => {
-  res.render("login");
-});
-
-app.post("/login", passport.authenticate("local", {
-    successRedirect: "/campgrounds",
-    failureRedirect: "/login"
-  }), function(req, res) {
-});
-
-app.get("/logout", (req, res) => {
-  req.logout();
-  res.redirect("/campgrounds");
-});
-
-function isLoggedIn(req, res, next) {
-  if(req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/login");
-}
 
 app.listen(5000, () => {
   console.log("server listening on port 5000");
