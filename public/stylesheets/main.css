@@ -36,7 +36,7 @@ body {
 }
 
 .newForm {
-    width: 30%;
+    width: 40%;
 }
 
 .jumbotron {
@@ -91,7 +91,11 @@ i {
     margin-top: 20px;
 }
 
-#deleteBtn {
+.deleteBtn {
     display: inline;
 
+}
+
+.col-md-12 {
+    margin-bottom: 15px;
 }

@@ -4,7 +4,6 @@ const express = require("express"),
   mongoose = require("mongoose"),
   passport = require("passport"),
   LocalStrategy = require("passport-local"),
-  flash = require("connect-flash"),
   methodOverride = require("method-override"),
   Campground = require("./models/campground.js"),
   Comment = require("./models/comment.js"),
@@ -31,7 +30,6 @@ app.use(require("express-session")({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());

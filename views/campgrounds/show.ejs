@@ -36,10 +36,12 @@
                         <% } %>
                         <span id="starAvg"><%= starAvg %> Stars</span>
                     </p>
-                    <a class="btn btn-warning" href="/campgrounds/<%= campground._id %>/edit" role="button">Edit</a>
-                    <form id="deleteBtn" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
-                        <button class="btn btn-danger">Delete</button>
-                    </form>
+                    <% if(currentUser && campground.author.id.equals(currentUser._id)) { %>
+                        <a class="btn btn-warning" href="/campgrounds/<%= campground._id %>/edit" role="button">Edit</a>
+                        <form class="deleteBtn" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    <% } %>
                 </div>
             </div>
             <div class="well">
@@ -58,10 +60,12 @@
                             <span><%= comment.author.username %></span>
                             <span class="pull-right"><%= comment.created.toDateString() %></span>
                             <p><%= comment.text %></p>
-                            <a class="btn btn-warning" href="#" role="button">Edit</a>
-                            <form action="" method="POST">
-                                <button class="btn btn-danger">Delete</button>
-                            </form>
+                            <% if(currentUser && comment.author.id.equals(currentUser._id)) { %>
+                                <a class="btn btn-warning" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit" role="button">Edit</a>
+                                <form class = "deleteBtn" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                            <% } %>
                         </div>
                     </div>
                 <% }); %>

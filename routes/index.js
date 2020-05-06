@@ -33,7 +33,6 @@ router.post(
   passport.authenticate("local", {
     successRedirect: "/campgrounds",
     failureRedirect: "/login",
-    failureFlash: true,
   }),
   function (req, res) {}
 );
