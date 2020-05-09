@@ -71,10 +71,6 @@ body {
     color: white;
 }
 
-.navbar {
-    margin-bottom: 0;
-}
-
 hr {
     border: 0;
     height: 0;
@@ -87,13 +83,8 @@ i {
     margin: auto 5px auto 0;
 }
 
-.container {
-    margin-top: 20px;
-}
-
 .deleteBtn {
     display: inline;
-
 }
 
 .col-md-12 {
